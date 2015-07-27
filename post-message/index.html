@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>EnhancedPostMessage</title>
+	<link href="static/css/main.css" rel="stylesheet" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.2/styles/default.min.css">
+</head>
+
+<body data-spy="scroll" data-target="nav">
+	<nav class="navbar-inverse navbar-fixed-top navbar-default" role="navigation">
+		<div class="container-fluid">
+			<!-- Brand and toggle get grouped for better mobile display -->
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#main-nav">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="/EnhancedPostMessage">EnhancedPostMessage</a>
+			</div>
+			<!-- Collect the nav links, forms, and other content for toggling -->
+			<div class="collapse navbar-right navbar-collapse" id="main-nav">
+				<ul class="nav navbar-nav">
+				</ul>
+			</div>
+			<!-- /.navbar-collapse -->
+		</div>
+		<!-- /.container-fluid -->
+	</nav>
+	<div id="top"></div>
+	<div class="container">
+		<!-- ONE WAY COMMUNICATION -->
+		<div class="row">
+			<div class="col-xs-12">
+				<h2>One way communication</h2>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-12">
+				<h3>Example</h3>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-9" style="position:absolute; top:30px; right:30px; z-index: 10000;">
+				<iframe src="iframes/oneWay.html" id="oneWayIframe"></iframe>
+			</div>
+			<div class="col-xs-3">
+				<button id="oneWayButton" class="btn btn-primary pull-right">Trigger one way communication</button>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-12">
+				<hr/>
+			</div>
+		</div>
+
+		<!-- ONE WAY COMMUNICATION WITH DATA -->
+		<div class="row">
+			<div class="col-xs-12">
+				<h2>One way communication with data</h2>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-12">
+				<h3>Example</h3>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-9">
+				<h4>Iframe</h4>
+			</div>
+			<div class="col-xs-3">
+				<h4>Parent</h4>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-9">
+				<iframe src="iframes/oneWayWithData.html" id="oneWayWithDataIframe"></iframe>
+			</div>
+			<div class="col-xs-3">
+				<input type="text" id="oneWayWithDataInput" class="form-control">
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-12">
+				<hr/>
+			</div>
+		</div>
+	</div>
+	<script src="dist/EnhancedPostMessage.js"></script>
+	<script src="jquery/jquery-2.1.3.min.js"></script>
+	<script src="bootstrap/dist/js/bootstrap.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.2/highlight.min.js"></script>
+	<script>
+		hljs.initHighlightingOnLoad();
+		var iframeClickedCount = 0;
+		var updateIframeClickedCount = function () {
+			iframeClickedCount++;
+			document.getElementById('iframeClickedCount').innerHTML = iframeClickedCount.toString();
+		};
+
+		EnhancedPostMessage({
+			sources: {
+				oneWay: document.getElementById('oneWayIframe'),
+				oneWayWithData: document.getElementById('oneWayWithDataIframe'),
+			},
+			stringify: true,
+			debug: true
+		});
+		// Buttons
+		var oneWayButton = document.getElementById('oneWayButton');
+		var oneWayWithDataInput = document.getElementById('oneWayWithDataInput');
+		// click listeners
+		oneWayButton.addEventListener('click', function () {
+			EnhancedPostMessage.trigger('oneWay', 'oneWay');
+		});
+		oneWayWithDataInput.addEventListener('keyup', function () {
+			EnhancedPostMessage.trigger('oneWayWithData', 'oneWayWithData', oneWayWithDataInput.value);
+		});
+	</script>
+</body>
+
+</html>

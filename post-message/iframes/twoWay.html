@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Basic</title>
+	<link href="../static/css/main.css" rel="stylesheet" />
+</head>
+
+<body class="less-padding">
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-12">Click both buttons! I dare you.</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-12"><code>Two way with iframe</code> button clicked <strong><span id="buttonClickedText">0</span></strong> times.</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-12">
+				<button id="twoWayIframeButton" class="btn btn-info">Two way with parent</button>
+			</div>
+		</div>
+	</div>
+	<script src="../dist/EnhancedPostMessage.js"></script>
+	<script src="../static/bower_components/jquery/dist/jquery.min.js"></script>
+	<script src="../static/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+	<script>
+		var numOfTimesButtonClicked = 0;
+		var updateNumOfTimeButtonClicked = function () {
+			numOfTimesButtonClicked++;
+			document.getElementById('buttonClickedText').innerHTML = numOfTimesButtonClicked.toString();
+		};
+		EnhancedPostMessage({
+			listeners: {
+				twoWay: updateNumOfTimeButtonClicked
+			},
+			events: {
+				twoWay: true
+			},
+			stringify: true
+		});
+
+		var twoWayIframeButton = document.getElementById('twoWayIframeButton');
+		twoWayIframeButton.addEventListener('click', function () {
+			EnhancedPostMessage.trigger('twoWay', 'parent');
+		});
+	</script>
+</body>
+
+</html>

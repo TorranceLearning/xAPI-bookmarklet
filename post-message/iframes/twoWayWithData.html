@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Basic</title>
+	<link href="../static/css/main.css" rel="stylesheet" />
+</head>
+
+<body class="less-padding">
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-12">Go ahead, type whatever you want in the input to the right it will auto update here!</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-12">Anything you change in here will auto update in the parent window as well!</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-12">You typed:
+				<input id="typedText" class="form-control" style="width: 29%; display: inline;" type="text" />
+			</div>
+		</div>
+	</div>
+	<script src="../dist/EnhancedPostMessage.js"></script>
+	<script src="../static/bower_components/jquery/dist/jquery.min.js"></script>
+	<script src="../static/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+	<script>
+		var updateTypedText = function (text) {
+			document.getElementById('typedText').value = text;
+		};
+		EnhancedPostMessage({
+			listeners: {
+				twoWayWithData: updateTypedText
+			},
+			events: {
+				twoWayWithData: true
+			},
+			stringify: true
+		});
+
+		var iframeInput = document.getElementById('typedText');
+		iframeInput.addEventListener('keyup', function () {
+			EnhancedPostMessage.trigger('twoWayWithData', 'parent', iframeInput.value);
+		});
+	</script>
+</body>
+
+</html>

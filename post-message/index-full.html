@@ -1,0 +1,544 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<title>EnhancedPostMessage</title>
+		<link href="static/css/main.css" rel="stylesheet" />
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.2/styles/default.min.css">
+	</head>
+
+	<body data-spy="scroll" data-target="nav">
+		<nav class="navbar-inverse navbar-fixed-top navbar-default" role="navigation">
+			<div class="container-fluid">
+				<!-- Brand and toggle get grouped for better mobile display -->
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#main-nav">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" href="/EnhancedPostMessage">EnhancedPostMessage</a>
+				</div>
+
+				<!-- Collect the nav links, forms, and other content for toggling -->
+				<div class="collapse navbar-right navbar-collapse" id="main-nav">
+					<ul class="nav navbar-nav">
+
+					</ul>
+				</div>
+				<!-- /.navbar-collapse -->
+			</div>
+			<!-- /.container-fluid -->
+		</nav>
+
+		<div id="top"></div>
+		<div class="container">
+			<div class="row">
+				<div class="col-xs-12">
+					<h1 id="enhancedpostmessage">EnhancedPostMessage</h1>
+
+					<p>An easy way to do 1 and 2 way communication across multiple frames/windows. Supports adding events programatically, and triggering events at any time after being instantiated.</p>
+
+					<hr>
+					<h2 id="options">Options</h2>
+					<p>You can view all options in the README: <a href="https://github.com/truckingsim/EnhancedPostMessage/blob/master/README.md" target="_blank">README.md</a>
+					</p>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-12">
+					<hr/>
+				</div>
+			</div>
+
+			<!-- ONE WAY COMMUNICATION -->
+
+			<div class="row">
+				<div class="col-xs-12">
+					<h2>One way communication</h2>
+
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-12">
+					<h3>Code</h3>
+				</div>
+			</div>
+			<blockquote>
+				<div class="row">
+					<div class="col-xs-12">
+						<strong>This page</strong>
+						<pre><code class="js">EnhancedPostMessage({
+		sources: {
+				oneWaySource: document.getElementbyId('oneWayIframe')
+		}
+});
+document.getElementById('oneWayButton').addEventListener('click', function(){
+		EnhancedPostMessage.trigger('oneWayEvent', 'oneWaySource');
+});</code></pre>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-12">
+						<strong>The iframe</strong>
+						<pre><code class="js">EnhancedPostMessage({
+		listeners: {
+				oneWayEvent: function(){
+						clickCounter++;
+						document.getElementById('clickCounter').innerHTML = clickCounter.toString();
+				}
+		}
+});</code></pre>
+					</div>
+				</div>
+			</blockquote>
+
+			<div class="row">
+				<div class="col-xs-12">
+					<h3>Example</h3>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-xs-9">
+					<iframe src="iframes/oneWay.html" id="oneWayIframe"></iframe>
+				</div>
+				<div class="col-xs-3">
+					<button id="oneWayButton" class="btn btn-primary pull-right">Trigger one way communication</button>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-xs-12">
+					<hr/>
+				</div>
+			</div>
+
+			<!-- ONE WAY COMMUNICATION WITH DATA -->
+
+			<div class="row">
+				<div class="col-xs-12">
+					<h2>One way communication with data</h2>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-xs-12">
+					<h3>Code</h3>
+				</div>
+			</div>
+			<blockquote>
+				<div class="row">
+					<div class="col-xs-12">
+						<strong>This page</strong>
+						<pre><code class="js">EnhancedPostMessage({
+		sources: {
+				oneWayWithDataSource: document.getElementbyId('oneWayWthDataIframe')
+		}
+});
+
+var oneWayWithDataInput = document.getElementById('oneWayWithDataInput');
+oneWayWithDataInput.addEventListener('keyup', function(){
+		EnhancedPostMessage.trigger('oneWayWithDataEvent', 'oneWayWithDataSource', oneWayWithDataInput.value);
+});</code></pre>
+					</div>
+					<div class="col-xs-12">
+						<strong>The iframe</strong>
+						<pre><code class="js">EnhancedPostMessage({
+		listeners: {
+				oneWayWithDataEvent: function(text){
+						document.getElementById('typedText').innerHTML = text;
+				}
+		}
+});</code></pre>
+					</div>
+				</div>
+			</blockquote>
+
+			<div class="row">
+				<div class="col-xs-12">
+					<h3>Example</h3>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-xs-9">
+					<h4>Iframe</h4>
+				</div>
+				<div class="col-xs-3">
+					<h4>Parent</h4>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-9">
+					<iframe src="iframes/oneWayWithData.html" id="oneWayWithDataIframe"></iframe>
+				</div>
+				<div class="col-xs-3">
+					<input type="text" id="oneWayWithDataInput" class="form-control">
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-xs-12">
+					<hr/>
+				</div>
+			</div>
+
+			<!-- TWO WAY COMMUNICATION -->
+
+			<div class="row">
+				<div class="col-xs-12">
+					<h2>Two way communication</h2>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-xs-12">
+					<h3>Code</h3>
+				</div>
+			</div>
+			<blockquote>
+				<div class="row">
+					<div class="col-xs-12">
+						<strong>This page</strong>
+						<pre><code class="js">EnhancedPostMessage({
+		sources: {
+				twoWaySource: document.getElementbyId('twoWayIframe')
+		},
+		listeners: {
+				twoWayIframeEvent: function(){
+						iframeClickCounter++;
+						document.getElementById('iframeClickedCount').innerHTML = iframeClickCounter.toString();
+				}
+		}
+});
+
+document.getElementById('twoWayButton').addEventListener('click', function(){
+		EnhancedPostMessage.trigger('twoWayEvent', 'twoWaySource');
+});</code></pre>
+					</div>
+					<div class="col-xs-12">
+						<strong>The iframe</strong>
+						<pre><code class="js">EnhancedPostMessage({
+		listeners: {
+				twoWayEvent: function(){
+						clickCounter++;
+						document.getElementById('clickCounter').innerHTML = clickCounter.toString();
+				}
+		},
+		events: {
+				twoWayIframeEvent: true
+		}
+});
+
+document.getElementById('twoWayIframeButton').addEventListener('click', function(){
+		// Note the parent string as the source, but no sources are defined.
+		// `parent` is a predefined source that will use `window.parent` as the source.
+		EnhancedPostMessage.trigger('twoWayIframeEvent', 'parent');
+});</code></pre>
+					</div>
+				</div>
+			</blockquote>
+
+			<div class="row">
+				<div class="col-xs-12">
+					<h3>Example</h3>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-xs-8">
+					<iframe src="iframes/twoWay.html" id="twoWayIframe"></iframe>
+				</div>
+				<div class="col-xs-4">
+
+
+					<div class="text-center">
+						<button id="twoWayButton" class="btn btn-primary">Two way with iframe</button>
+						<br/>
+						<br/>
+						<br/>
+						<br/>
+						<h4><code>Two with parent</code> button clicked <strong><span id="iframeClickedCount">0</span></strong> times.</h4>
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-xs-12">
+					<hr/>
+				</div>
+			</div>
+
+			<!-- TWO WAY COMMUNICATION WITH DATA -->
+
+			<div class="row">
+				<div class="col-xs-12">
+					<h2>Two way communication with data</h2>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-xs-12">
+					<h3>Code</h3>
+				</div>
+			</div>
+			<blockquote>
+				<div class="row">
+					<div class="col-xs-12">
+						<strong>This page</strong>
+						<pre><code class="js">EnhancedPostMessage({
+		sources: {
+				twoWayWithDataSource: document.getElementbyId('twoWayWthDataIframe')
+		},
+		listeners: {
+				twoWayWithDataIframeEvent: function(text){
+						document.getElementById('parentTwoWayInput').innerHTML = text;
+				}
+		}
+});
+
+var parentTwoWayInput = document.getElementById('parentTwoWayInput');
+parentTwoWayInput.addEventListener('keyup', function(){
+		EnhancedPostMessage.trigger('twoWayWithDataEvent', 'twoWayWithDataSource', parentTwoWayInput.value);
+});</code></pre>
+					</div>
+					<div class="col-xs-12">
+						<strong>The iframe</strong>
+						<pre><code class="js">EnhancedPostMessage({
+		listeners: {
+				twoWayWithDataEvent: function(text){
+						document.getElementById('iframeTwoWayInput').value = text;
+				}
+		}
+});
+
+var iframeTwoWayInput = document.getElementById('iframeTwoWayInput');
+iframeTwoWayInput.addEventListener('click', function(){
+		// Note the parent string as the source, but no sources are defined.
+		// `parent` is a predefined source that will use `window.parent` as the source.
+		EnhancedPostMessage.trigger('twoWayIframeEvent', 'parent', iframeTwoWayInput.value);
+});</code></pre>
+					</div>
+				</div>
+			</blockquote>
+
+			<div class="row">
+				<div class="col-xs-12">
+					<h3>Example</h3>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-xs-9">
+					<h4>Iframe</h4>
+				</div>
+				<div class="col-xs-3">
+					<h4>Parent</h4>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-9">
+					<iframe src="iframes/twoWayWithData.html" id="twoWayWithDataIframe"></iframe>
+				</div>
+				<div class="col-xs-3">
+					<input type="text" id="twoWayWithDataInput" class="form-control">
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-xs-12">
+					<hr/>
+				</div>
+			</div>
+
+			<!-- ADDING SOURCES, EVENTS, AND LISTENERS DYNAMICALLY -->
+
+			<div class="row">
+				<div class="col-xs-12">
+					<h2>Adding Sources, Events and Listeners Dynamically</h2>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-xs-12">
+					<h3>Code</h3>
+				</div>
+			</div>
+
+			<blockquote>
+				<div class="row">
+					<div class="col-xs-12">
+						<strong>This page</strong>
+						<pre><code>EnhancedPostMessage.addSource('dynamicSourceName', document.getElementById('dynamicSource'));
+
+var iframe = document.createElement('iframe');
+iframe.onload = function(){
+		EnhancedPostMessage.trigger('dynamicEventName', 'dynamicSourceName');
+};
+document.getElementsByTagName('body')[0].appendChild(iframe);</code></pre>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-12">
+						<strong>The Iframe</strong>
+						<pre><code>var callback = function(){
+		// Do something amazing
+};
+EnhancedPostMessage.addListener('dynamicEventName', callback);</code></pre>
+					</div>
+				</div>
+			</blockquote>
+
+			<div class="row">
+				<div class="col-xs-12">
+					<h3>Example</h3>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-xs-9">
+					<h4>Iframe</h4>
+				</div>
+				<div class="col-xs-3">
+					<h4>Parent</h4>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-xs-9" id="dynamicSourceContainer">
+
+				</div>
+				<div class="col-xs-3" id="dynamicButtonsContainer">
+					<div class="row" style="margin-bottom:5px;">
+						<div class="col-xs-12">
+							<button class="btn btn-primary col-xs-12" id="dynamicAddSourceButton">Add Iframe</button>
+						</div>
+					</div>
+					<div class="row" style="margin-bottom:5px;">
+						<div class="col-xs-12">
+							<button class="btn btn-primary col-xs-12" id="dynamicClickButton" disabled>Trigger Click Listener</button>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- MULTIPLE SOURCES -->
+
+			<div class="row">
+				<div class="col-xs-12">
+					<h2>Multiple Sources</h2>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-xs-12">
+					The plugin works with multiple sources, listeners and events. This page, works off of one instance of the plugin for all examples.
+					<br> For full usage, view source this page for all the JS.
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-xs-12">
+					<pre><code class="js">EnhancedPostMessage({
+		sources: {
+				oneWay: document.getElementById('oneWayIframe'),
+				oneWayWithData: document.getElementById('oneWayWithDataIframe'),
+				twoWay: document.getElementById('twoWayIframe'),
+				twoWayWithData: document.getElementById('twoWayWithDataIframe')
+		},
+		listeners: {
+				twoWay: updateIframeClickedCount,
+				twoWayWithData: updateTwoWayWithDataInputValue
+		},
+		stringify: true,
+		debug: true
+});</code></pre>
+				</div>
+			</div>
+		</div>
+
+		<script src="dist/EnhancedPostMessage.js"></script>
+		<script src="jquery/jquery-2.1.3.min.js"></script>
+		<script src="bootstrap/dist/js/bootstrap.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.2/highlight.min.js"></script>
+		<script>
+			hljs.initHighlightingOnLoad();
+			var iframeClickedCount = 0;
+			var updateIframeClickedCount = function () {
+				iframeClickedCount++;
+				document.getElementById('iframeClickedCount').innerHTML = iframeClickedCount.toString();
+			};
+
+			var updateTwoWayWithDataInputValue = function (text) {
+				document.getElementById('twoWayWithDataInput').value = text;
+			};
+
+			EnhancedPostMessage({
+				sources: {
+					oneWay: document.getElementById('oneWayIframe'),
+					oneWayWithData: document.getElementById('oneWayWithDataIframe'),
+					twoWay: document.getElementById('twoWayIframe'),
+					twoWayWithData: document.getElementById('twoWayWithDataIframe')
+				},
+				listeners: {
+					twoWay: updateIframeClickedCount,
+					twoWayWithData: updateTwoWayWithDataInputValue
+				},
+				stringify: true,
+				debug: true
+			});
+
+			// Buttons
+			var oneWayButton = document.getElementById('oneWayButton');
+			var oneWayWithDataInput = document.getElementById('oneWayWithDataInput');
+			var twoWayButton = document.getElementById('twoWayButton');
+			var twoWayWithDataInput = document.getElementById('twoWayWithDataInput');
+			var dynamicAddSourceButton = document.getElementById('dynamicAddSourceButton');
+			var dynamicClickButton = document.getElementById('dynamicClickButton');
+			var dynamicIframe = null;
+
+			// click listeners
+			oneWayButton.addEventListener('click', function () {
+				EnhancedPostMessage.trigger('oneWay', 'oneWay');
+			});
+
+			oneWayWithDataInput.addEventListener('keyup', function () {
+				EnhancedPostMessage.trigger('oneWayWithData', 'oneWayWithData', oneWayWithDataInput.value);
+			});
+
+			twoWayButton.addEventListener('click', function () {
+				EnhancedPostMessage.trigger('twoWay', 'twoWay');
+			});
+
+			twoWayWithDataInput.addEventListener('keyup', function () {
+				EnhancedPostMessage.trigger('twoWayWithData', 'twoWayWithData', twoWayWithDataInput.value);
+			});
+
+			dynamicAddSourceButton.addEventListener('click', function () {
+				this.disabled = true;
+				if (!dynamicIframe) {
+					dynamicIframe = document.createElement('iframe');
+					dynamicIframe.src = 'iframes/dynamic.html';
+					dynamicIframe.id = 'dynamicIframe';
+
+					dynamicIframe.onload = function () {
+						dynamicClickButton.disabled = false;
+					};
+
+					document.getElementById('dynamicSourceContainer').appendChild(dynamicIframe);
+					EnhancedPostMessage.addSource('dynamicSource', dynamicIframe);
+				}
+			});
+
+			dynamicClickButton.addEventListener('click', function () {
+				if (dynamicIframe) {
+					EnhancedPostMessage.trigger('dynamicEvent', 'dynamicSource');
+				}
+			});
+		</script>
+	</body>
+
+</html>

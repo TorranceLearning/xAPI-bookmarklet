@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Basic</title>
+	<link href="../static/css/main.css" rel="stylesheet" />
+</head>
+
+<body class="less-padding">
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-12">Go ahead, type whatever you want in the input to the right!</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-12">You typed: <strong id="typedText"></strong>
+			</div>
+		</div>
+	</div>
+	<script src="../dist/EnhancedPostMessage.js"></script>
+	<script src="../static/bower_components/jquery/dist/jquery.min.js"></script>
+	<script src="../static/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+	<script>
+		var updateTypedText = function (text) {
+			document.getElementById('typedText').innerHTML = text;
+		};
+		EnhancedPostMessage({
+			listeners: {
+				oneWayWithData: updateTypedText
+			},
+			stringify: true
+		});
+	</script>
+</body>
+
+</html>
