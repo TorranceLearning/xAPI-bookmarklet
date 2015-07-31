@@ -1,0 +1,103 @@
+<!doctype html>
+<html class="no-js" lang="en">
+
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Personal Learning Library</title>
+
+	<link rel="stylesheet" href="http://cdn.foundation5.zurb.com/foundation.css" />
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
+	<link rel="stylesheet" href="css/styles.css" />
+
+</head>
+
+<body>
+	<div class="row header">
+		<div class="large-12 columns">
+			<h3 class="frame-title"><strong>PERSONAL LEARNING LIBRARY</strong></h3>
+			<!--			<button class="closeBtn tiny secondary button" id="close-frame">X</button>-->
+		</div>
+	</div>
+	<div class="row">
+		<div class="large-12 columns">
+			<div class="section-title">Bookmark:</div>
+			<div class="page-title panel">
+				<img id="favicon">
+				<p id="page-title-text" class="inline hidden"></p>
+			</div>
+
+	<div class="row">
+		<div class="large-12 columns">
+			<div class="section-title">Rating:</div>
+<!--				<p class="starRatingBox">-->
+					<span class="starRating">
+						<input class="userRating" id="star5" type="radio" name="rating" value="5">
+						<label for="star5">5</label>
+						<input class="userRating" id="star4" type="radio" name="rating" value="4">
+						<label for="star4">4</label>
+						<input class="userRating" id="star3" type="radio" name="rating" value="3">
+						<label for="star3">3</label>
+						<input class="userRating" id="star2" type="radio" name="rating" value="2">
+						<label for="star2">2</label>
+						<input class="userRating" id="star1" type="radio" name="rating" value="1">
+						<label for="star1">1</label>
+					</span>
+<!--				</p>-->
+			</div>
+		</div>
+
+			<form>
+				<div class="row">
+					<div class="large-12 columns">
+						<label for="learned" class="section-title">I learned:</label>
+						<textarea id="learned" placeholder="Enter text here..."></textarea>
+					</div>
+					<div class="large-12 columns">
+						<label for="remember" class="section-title">I want to remember:</label>
+						<textarea id="remember" placeholder="Enter text here..."></textarea>
+					</div>
+				</div>
+				<div class="row">
+					<div class="large-12 columns">
+						<label class="section-title">Tags (separate with spaces):</label>
+						<input type="text" placeholder="Enter tags here..." />
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="large-12 columns">
+						<label for="recommend" class="section-title">Would you recommend this to others?</label>
+						<input type="radio" class="recommend" name="recommend" value="Yes" id="recommend-yes">
+						<label for="recommend-yes"><span></span>Yes</label>
+						<input type="radio" class="recommend" name="recommend" value="No" id="recommend-no">
+						<label for="recommend-no"><span></span>No</label>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+
+	<div class="row bottom-buttons">
+		<div class="large-12 columns">
+			<button id="add-button" class="small radius button">Add</button>
+			<button id="close-frame" class="small radius secondary button">Cancel</button>
+		</div>
+	</div>
+
+	<div data-alert id="tincan-ok" class="hidden alert-box success radius">Bookmark successful!
+		<button class="close">&times;</button>
+	</div>
+	<div data-alert id="tincan-fail" class="hidden alert-box alert radius">Bookmark failed to save. Try again?
+		<button class="close">&times;</button>
+	</div>
+
+	<script src="EnhancedPostMessage.js"></script>
+	<script src="tincan-min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+	<script src="http://cdn.foundation5.zurb.com/foundation.js"></script>
+	<script src="frame.js"></script>
+
+</body>
+
+</html>

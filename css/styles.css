@@ -1,0 +1,167 @@
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+label {
+	color: gray;
+}
+
+.header {
+	background: #008CBA;
+	margin-bottom: 16px;
+}
+
+.hidden {
+	display: none;
+}
+
+.section-title {
+	font-size: 17px;
+	font-weight: bold;
+	cursor: default;
+	margin-bottom: 4px;
+	/*			color: #008CBA;*/
+}
+
+.frame-title {
+	margin: 18px 6px;
+	color: #fff;
+}
+
+.page-title {
+	margin-bottom: 12px;
+}
+
+.inline {
+	display: inline;
+}
+
+#favicon {
+	margin-right: 5px;
+	margin-bottom: 2px;
+}
+
+.bottom-buttons {
+	margin-top: 20px;
+}
+
+.alert-box {
+	position: fixed;
+	bottom: 0px;
+	margin: 0 auto;
+	width: 100%;
+}
+
+.animate-up {
+	animation: slideup 0.5s ease;
+}
+
+.fadein {
+	animation: fadein 0.5s;
+}
+
+@keyframes slideup {
+	from {
+		transform: translate(0px, 49px);
+	}
+	to {
+		transform: translate(0px, 0px);
+	}
+}
+
+@keyframes fadein {
+	from {opacity: 0}
+	to {opacity: 1}
+}
+
+/* Star rating -------:not(old)----------------*/
+
+.starRating{
+	display        : inline-block;
+	width          : 15em;
+	height         : 2em;
+	overflow       : hidden;
+	vertical-align : bottom;
+	margin-bottom	 : 14px;
+	margin-left		 : -32px;
+}
+
+.starRating > input{
+	margin-right : -100%;
+	opacity      : 0;
+}
+
+input[type="radio"] + label {
+	margin-right: 3px;
+}
+
+.starRating > label{
+	display         : block;
+	float           : right;
+	position        : relative;
+	background      : url('../images/star-off.svg');
+	background-size : contain;
+	font-size 			: 1em;
+}
+
+.starRating > label:before{
+	content         : '';
+	display         : block;
+	width           : 2em;
+	height          : 2em;
+	background      : url('../images/star-on.svg');
+	background-size : contain;
+	opacity         : 0;
+	transition      : opacity 0.1s linear;
+}
+
+.starRating > label:hover:before,
+.starRating > label:hover ~ label:before,
+.starRating:not(:hover) > :checked ~ label:before{
+	opacity : 1;
+}
+
+/*Radio Buttons - recommend*/
+
+input.recommend[type="radio"] {
+	display: none;
+}
+
+input.recommend[type="radio"] + label {
+	margin-right: 1.5rem;
+	margin-left: 0;
+}
+
+input.recommend[type="radio"] + label span {
+	display: inline-block;
+	width: 19px;
+	height: 19px;
+	margin: -1px 6px 0 0;
+	vertical-align: middle;
+	cursor: pointer;
+	border-width: 2px;
+	border-color: #CCCCCC;
+	border-style: solid;
+	-moz-border-radius: 50%;
+	border-radius: 50%;
+/*	background-color: #9a9a9a;*/
+		background-color: rgba(255, 255, 255, 0);
+
+}
+
+input.recommend[type="radio"]:checked + label span {
+	border-color: #75923C;
+	background-color: #99CC33;
+}
+
+input.recommend[type="radio"] + label span,
+input.recommend[type="radio"]:checked + label span {
+	-webkit-transition: background-color 0.2s linear;
+	-o-transition: background-color 0.2s linear;
+	-moz-transition: background-color 0.2s linear;
+	transition: background-color 0.2s linear;
+}
+
