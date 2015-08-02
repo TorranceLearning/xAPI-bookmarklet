@@ -165,3 +165,17 @@ input.recommend[type="radio"]:checked + label span {
 	transition: background-color 0.2s linear;
 }
 
+
+
+
+.small-text {
+	font-size: 14px;
+}
+
+#tags {
+	margin-left: 4px;
+}
+
+label.section-title > em{
+	font-weight: normal;
+}

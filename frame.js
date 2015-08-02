@@ -33,9 +33,14 @@ function processPageData(pageData) {
 		userRating = Number($(".userRating:checked").val());
 	});
 
+
 	// Tin Can config
 	// ----------------------------------------------------------->>>
 	var tincan = new TinCan({
+		actor: {
+			name: username,
+			mbox: "mailto:" + email
+		},
 		recordStores: [{
 			// SCORM Cloud Test App(sandbox) ----->>
 			endpoint: "https://cloud.scorm.com/tc/0JVWBNRYM0/sandbox/",
@@ -46,11 +51,7 @@ function processPageData(pageData) {
 
 	TinCan.DEBUG = true;
 
-	function createStmt() {
 	var ruuid = TinCan.Utils.getUUID();
-	if (userRating === undefined) {
-		userRating = 0;
-	}
 
 	var thisActivity =  {
 		id: "http://id.tincanapi.com/recipe/bookmarklet/base/1",
@@ -59,11 +60,82 @@ function processPageData(pageData) {
 		}
 	};
 
+	var getStateCfg = {
+		activity: thisActivity,
+//		registration: ruuid,
+		callback: getStateCallback
+	};
+
+	function uniq(a) {
+		var seen = {};
+		return a.filter(function(item) {
+				return seen.hasOwnProperty(item) ? false : (seen[item] = true);
+		});
+	}
+
+	var savedTags = [];
+
+	function getStateCallback (err, state) {
+		console.log('err:', err);
+		if (state !== null || undefined || "") {
+			$('#tag-row').removeClass('hidden').addClass('fadein');
+		}
+		var	tagList = $('#tags');
+		savedTags = uniq(state.contents.tags);
+		$(savedTags).each(function(index, tagName) {
+			var newTag = document.createElement('a');
+			newTag.href = '#';
+			newTag.innerHTML = tagName + " ";
+			tagList.append(newTag);
+		});
+
+		$('.tags-select a').click(function() {
+			var value = $(this).text(),
+					input = $('#user-tags-input');
+			if (input.val().indexOf(value) > -1) {return;}
+			else {input.val(input.val() + value);}
+	//		$(this).addClass('hidden');
+			return false;
+		});
+	}
+
+	tincan.getState("tags", getStateCfg);
+
+	function createStmt() {
+	if (userRating === undefined) {userRating = 0;}
+
+	var userTags = [], xapiTags = [],
+			tagInput = $('#user-tags-input')[0].value;
+	tagInput = tagInput.trim();
+	userTags = tagInput.split(" ");
+	userTags = uniq(userTags);
+
+	$(userTags).each(function(index, tagName){
+		var thisTag = {
+			id:"http://id.tincanapi.com/activity/tags/" + tagName,
+			definition: {type:"http://id.tincanapi.com/activitytype/tag"}
+		};
+		xapiTags.push(thisTag);
+	});
+
+	var setStateCfg = {
+		activity: thisActivity,
+//		registration: ruuid,
+//		lastSHA1: "", //TinCan.Utils.getSHA1String(a)
+		contentType: "application/json",
+		callback: function(err, setState) {
+			console.log('err:', err);
+			console.log('setState:', setState);
+		}
+	};
+
+	var combinedTags = savedTags.concat(userTags);
+		console.log('combinedTags:', combinedTags);
+	var setStateTags = {"tags": combinedTags};
+
+	tincan.setState("tags", setStateTags, setStateCfg);
+
 	var bookmark = {
-		actor: {
-			name: username,
-			mbox: "mailto:" + email
-		},
 		verb: {
 			id: "http://id.tincanapi.com/verb/bookmarked",
 			display: {
@@ -79,8 +151,12 @@ function processPageData(pageData) {
 				type: "http://activitystrea.ms/schema/1.0/page"
 			}
 		},
-		result: {
-			success: true,
+		context: {
+			registration: ruuid,
+			contextActivities: {
+				category: thisActivity,
+				other: xapiTags
+			},
 			extensions: {
 				"http://id.tincanapi.com/extension/quality-rating": {
 					"min":1,
@@ -101,31 +177,9 @@ function processPageData(pageData) {
 				},
 				"http://www.torrancelearning.com/xapi/bookmarklet/favicon": favicon
 			}
-
-		},
-		context: {
-			registration: ruuid,
-			contextActivities: {
-				category: thisActivity
-			}
-//			extensions: {
-//				"http://xxxxxxxx": {
-
-//			}
 		}
 	};
 
-
-	var stateCfg = {
-		agent: {name: username, mbox: "mailto:" + email},
-		activity: thisActivity,
-		registration: ruuid,
-//		lastSHA1: "", //TinCan.Utils.getSHA1String(a)
-		contentType: "application/json",
-
-	};
-
-	tincan.setState("testKey", "testValue", stateCfg);
 	tincan.sendStatement(bookmark, sendCallback);
 }
 
@@ -147,4 +201,4 @@ function processPageData(pageData) {
 		console.log('stmtID:', stmtID);
 	}
 
-}
+}//end processPageData

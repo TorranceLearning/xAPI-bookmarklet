@@ -119,4 +119,16 @@ javascript: (function (e, a, g, h, f, c, b, d) {
 // WORKING 072715
 javascript: function rbm() { window.rbmAuth = "Basic VGVzdDpWR1Z6ZEZWelpYSTZjR0Z6YzNkdmNtUT0=", window.rbmEndpoint = "https://cloud.scorm.com/tc/public/", window.rbmEmail = "mpkliewer@gmail.com", window.rbmName = "Matthew"; var a = document, b = a.createElement("sc" + "ript"), c = a.body, d = a.location; b.setAttribute("src", "https://rawgit.com/mpkliewer/bookmarklet/master/bookmarklet.js"); c.appendChild(b) } rbm(); void 0
 
+function rbm() {
+	window.rbmEmail = "mpkliewer@gmail.com",
+	window.rbmName = "Matthew";
+var a = document,
+	b = a.createElement("sc" + "ript"),
+	c = a.body,
+	d = a.location;
+b.setAttribute("src", "http://www.torrancelearning.com/xapi/bookmarklet/bookmarklet.js");
+c.appendChild(b)
+}
+rbm();
+void 0
 
