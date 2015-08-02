@@ -189,14 +189,24 @@ function processPageData(pageData) {
 		EnhancedPostMessage.trigger('closeBookmarklet', 'parent');
 	});
 
+	function animateAlert(element) {
+		$(element).removeClass('hidden').addClass('slide-up');
+		setTimeout(function(){
+			$(element).addClass('slide-down').removeClass('slide-up');
+				setTimeout(function() {
+					$(element).addClass('hidden').removeClass('slide-down');
+				}, 500);
+		}, 3000);
+	};
+
 	function sendCallback(status, stmtID) {
 		var sentStatus = status[0].xhr.status;
 		if (sentStatus === 0 || sentStatus === 400) {
 			console.log("FAIL: sentStatus = " + sentStatus);
-			$('#tincan-fail').removeClass('hidden').addClass('animate-up');
+			animateAlert($('#tincan-fail'));
 		} else {
 			console.log("SUCCESS: sentStatus  = " + sentStatus);
-			$('#tincan-ok').removeClass('hidden').addClass('animate-up');
+			animateAlert($('#tincan-ok'));
 		}
 		console.log('stmtID:', stmtID);
 	}

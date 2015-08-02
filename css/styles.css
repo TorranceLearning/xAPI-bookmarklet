@@ -55,8 +55,12 @@ label {
 	width: 100%;
 }
 
-.animate-up {
+.slide-up {
 	animation: slideup 0.5s ease;
+}
+
+.slide-down {
+	animation: slidedown 0.5s ease;
 }
 
 .fadein {
@@ -64,12 +68,13 @@ label {
 }
 
 @keyframes slideup {
-	from {
-		transform: translate(0px, 49px);
-	}
-	to {
-		transform: translate(0px, 0px);
-	}
+	from {transform: translate(0px, 49px);}
+	to {transform: translate(0px, 0px);}
+}
+
+@keyframes slidedown {
+	from {transform: translate(0px, 0px);}
+	to {transform: translate(0px, 49px);}
 }
 
 @keyframes fadein {
