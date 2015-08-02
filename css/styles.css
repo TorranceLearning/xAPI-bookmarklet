@@ -5,13 +5,15 @@ h3,
 h4,
 h5,
 h6,
-label {
+label,
+span.prefix{
 	color: gray;
+/*	font-family: lato, sans-serif;*/
 }
 
 .header {
 	background: #008CBA;
-	margin-bottom: 16px;
+/*	margin-bottom: 16px;*/
 }
 
 .hidden {
@@ -31,17 +33,14 @@ label {
 	color: #fff;
 }
 
-.page-title {
-	margin-bottom: 12px;
-}
-
 .inline {
 	display: inline;
 }
 
 #favicon {
-	margin-right: 5px;
-	margin-bottom: 2px;
+	padding-left: 5px;
+	margin-top: -3px;
+	width: 26px;
 }
 
 .bottom-buttons {
@@ -90,7 +89,7 @@ label {
 	height         : 2em;
 	overflow       : hidden;
 	vertical-align : bottom;
-	margin-bottom	 : 14px;
+	margin-bottom	 : 7px;
 	margin-left		 : -32px;
 }
 
@@ -170,11 +169,14 @@ input.recommend[type="radio"]:checked + label span {
 	transition: background-color 0.2s linear;
 }
 
+.light {
+	color: #969696;
+}
 
-
-
-.small-text {
+p.small-text {
+	margin-bottom: .7rem;
 	font-size: 14px;
+	padding-left: 13px;
 }
 
 #tags {
@@ -183,4 +185,69 @@ input.recommend[type="radio"]:checked + label span {
 
 label.section-title > em{
 	font-weight: normal;
+}
+
+#user-tags-input {
+	margin-bottom: 6px;
+}
+
+input[type="text"], textarea, .panel {
+	background-color: #ebebeb;
+}
+
+::-webkit-input-placeholder {color:#9a9a9a;}
+::-moz-placeholder {color:#9a9a9a;}
+:-ms-input-placeholder {color:#9a9a9a;}
+
+.page-title {
+	padding: .9rem;
+	margin-bottom: 12px;
+}
+
+.inline-title {
+	line-height: 2.7em;
+	margin-right: 6px;
+}
+
+#page-title-text {
+	line-height: 1.2em;
+	margin:0;
+	color: #008CBA;
+	font-weight:bold;
+}
+
+.bookmark-box {
+	margin-bottom: 8px;
+}
+
+.entry {
+	padding-left: 1.5rem;
+	padding-right: 1.5rem;
+}
+
+.page-title-right {
+	width:91%;
+	float:right;
+
+}
+
+.page-title-left {
+	width:9%;
+	float:left;
+}
+
+span.prefix {
+	font-size: 14px;
+	background-color: rgb(213, 213, 213);
+}
+
+#tag-box {
+	margin-top: 20px;
+}
+
+#add-selected.label.button {
+	color: white;
+/*	margin-bottom:2px;*/
+	vertical-align:middle;
+	float:right;
 }

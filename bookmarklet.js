@@ -56,20 +56,32 @@ var a = document,
 }
 
 function closeBookmarklet(){
-var thisFrame = document.getElementById('iframe-bookmarklet'),
-		thisBody = document.body;
-	thisBody.removeChild(thisFrame);
+var thisFrame = document.getElementById('iframe-bookmarklet');
+	document.body.removeChild(thisFrame);
 }
 
-loadFrame();
+var text = "";
+
+function getSelectionText() {
+	if (window.getSelection) {
+		text = window.getSelection().toString();
+	} else if (document.selection && document.selection.type != "Control") {
+		text = document.selection.createRange().text;
+	}
+	return text;
+}
+
+setTimeout(loadFrame, 200);
 
 function startPostMessage() {
+	getSelectionText();
 	EnhancedPostMessage({
 		sources: {
 			frameSource: document.getElementById('iframe-bookmarklet'),
 		},
 		listeners: {
-			closeBookmarklet: closeBookmarklet
+			closeBookmarklet: closeBookmarklet,
+			getNewSelectionText: getNewSelectionText
 		}
 	});
 	var pageSource = document.title,
@@ -78,8 +90,12 @@ function startPostMessage() {
 			thisFavicon = "http://www.google.com/s2/favicons?domain=" + thisDomain,
 			username = window.rbmName,
 			email = window.rbmEmail,
-			pageData = [pageSource, thisFavicon, username, email, thisHref];
+			pageData = [pageSource, thisFavicon, username, email, thisHref, text];
 	EnhancedPostMessage.trigger('getPageData', 'frameSource', pageData);
+}
 
+function getNewSelectionText() {
+	getSelectionText();
+	EnhancedPostMessage.trigger('sendSelectedText', 'frameSource', text);
 }
 

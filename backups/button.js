@@ -122,13 +122,33 @@ javascript: function rbm() { window.rbmAuth = "Basic VGVzdDpWR1Z6ZEZWelpYSTZjR0Z
 function rbm() {
 	window.rbmEmail = "mpkliewer@gmail.com",
 	window.rbmName = "Matthew";
+	var existingScript=document.getElementById("bookmarklet-script");
+	if (!existingScript){
 var a = document,
 	b = a.createElement("sc" + "ript"),
 	c = a.body,
 	d = a.location;
 b.setAttribute("src", "http://www.torrancelearning.com/xapi/bookmarklet/bookmarklet.js");
+b.setAttribute("id", "bookmarklet-script");
 c.appendChild(b)
-}
+}}
 rbm();
 void 0
 
+
+(function () {
+		function rbm() {
+			window.rbmEmail = "mpkliewer@gmail.com", window.rbmName = "Matthew";
+			var existingScript = document.getElementById("bookmarklet-script");
+			if (existingScript){existingScript.parentNode.removeChild(existingScript);}
+				var a = document,
+					b = a.createElement("sc" + "ript"),
+					c = a.body,
+					d = a.location;
+				b.setAttribute("src", "http://www.torrancelearning.com/xapi/bookmarklet/bookmarklet.js");
+				b.setAttribute("id", "bookmarklet-script");
+				c.appendChild(b)
+			}
+			rbm();
+			void 0
+		})();

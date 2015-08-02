@@ -11,28 +11,49 @@ function processPageData(pageData) {
 		favicon = pageData[1],
 		username = pageData[2],
 		email = pageData[3],
-		pageHref = pageData[4];
+		pageHref = pageData[4],
+		selectedText = pageData[5];
 	thisFavicon.src = favicon;
 	title.innerHTML = pageTitle;
 	$(title).removeClass('hidden').addClass('fadein');
 
-	var userRating, learned, remember, recommendAnswer,
+	var userRating, learned, remember, quote, recommendAnswer,
 	learnedLabel = $('label[for="learned"]')[0].innerHTML,
 	rememberLabel = $('label[for="remember"]')[0].innerHTML,
+	quoteLabel = $('label[for="quote"]')[0].innerHTML,
 	recommendLabel = $('label[for="recommend"]')[0].innerHTML;
 
 	$("#learned").blur(function() {learned = this.value;});
 	$("#remember").blur(function() {remember = this.value;});
+	$("#quote").blur(function() {quote = this.value;});
 
 	$(".recommend").on('click', function() {
 		recommendAnswer = $(".recommend:checked").val();
-		console.log('recommendAnswer:', recommendAnswer);
 	});
 
 	$(".userRating").on('click', function() {
 		userRating = Number($(".userRating:checked").val());
 	});
 
+	$("#add-selected").on('click', function() {
+		EnhancedPostMessage.trigger('getNewSelectionText', 'parent');
+	});
+
+	EnhancedPostMessage({listeners: {sendSelectedText: addNewSelected}});
+
+	function addNewSelected(text) {
+		selectedText = text;
+		addSelected();
+	}
+
+	function addSelected() {
+		var input = $('#quote');
+		if (input.val().indexOf(selectedText) > -1) {return;}
+		else {input.val(input.val() + selectedText);}
+		return false;
+	}
+
+	addSelected();
 
 	// Tin Can config
 	// ----------------------------------------------------------->>>
@@ -78,7 +99,7 @@ function processPageData(pageData) {
 	function getStateCallback (err, state) {
 		console.log('err:', err);
 		if (state !== null || undefined || "") {
-			$('#tag-row').removeClass('hidden').addClass('fadein');
+			$('#tags').removeClass('hidden').addClass('fadein');
 		}
 		var	tagList = $('#tags');
 		savedTags = uniq(state.contents.tags);
@@ -171,6 +192,10 @@ function processPageData(pageData) {
 					"label": rememberLabel,
 					"response": remember,
 				},
+				"http://www.torrancelearning.com/xapi/bookmarklet/freeform/quote": {
+					"label": quoteLabel,
+					"response": quote,
+				},
 				"http://www.torrancelearning.com/xapi/bookmarklet/recommend": {
 					"label": recommendLabel,
 					"response": recommendAnswer,
@@ -187,6 +212,12 @@ function processPageData(pageData) {
 
 	$('#close-frame').on('click', function () {
 		EnhancedPostMessage.trigger('closeBookmarklet', 'parent');
+	});
+
+	$(document).keydown(function(e) {
+		if (e.keyCode === 27) {
+			EnhancedPostMessage.trigger('closeBookmarklet', 'parent');
+		}
 	});
 
 	function animateAlert(element) {
