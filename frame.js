@@ -12,7 +12,10 @@ function processPageData(pageData) {
 		username = pageData[2],
 		email = pageData[3],
 		pageHref = pageData[4],
-		selectedText = pageData[5];
+		selectedText = pageData[5],
+		lrsEndpoint = pageData[6],
+		lrsUsername = pageData[7],
+		lrsPassword = pageData[8];
 	thisFavicon.src = favicon;
 	title.innerHTML = pageTitle;
 	$(title).removeClass('hidden').addClass('fadein');
@@ -49,7 +52,10 @@ function processPageData(pageData) {
 	function addSelected() {
 		var input = $('#quote');
 		if (input.val().indexOf(selectedText) > -1) {return;}
-		else {input.val(input.val() + selectedText);}
+		else {
+			input.val(input.val() + selectedText);
+			quote = input.val();
+		}
 		return false;
 	}
 
@@ -64,8 +70,12 @@ function processPageData(pageData) {
 		},
 		recordStores: [{
 			// SCORM Cloud Test App(sandbox) ----->>
-			endpoint: "https://cloud.scorm.com/tc/0JVWBNRYM0/sandbox/",
-			auth: "Basic MEpWV0JOUllNMDpRejlrZ1oxUXpJa1JSNDZYVmlNcG81aHp6Qm1aY2RxRzNmYk5ESUNl",
+//			endpoint: "https://cloud.scorm.com/tc/0JVWBNRYM0/sandbox/",
+//			auth: "Basic MEpWV0JOUllNMDpRejlrZ1oxUXpJa1JSNDZYVmlNcG81aHp6Qm1aY2RxRzNmYk5ESUNl",
+
+			endpoint: lrsEndpoint,
+			auth: "Basic " + TinCan.Utils.getBase64String(lrsUsername+":"+lrsPassword),
+
 			allowFail: false
 	}]
 	});
@@ -96,28 +106,29 @@ function processPageData(pageData) {
 
 	var savedTags = [];
 
-	function getStateCallback (err, state) {
-		console.log('err:', err);
+	function getStateCallback (error, state) {
+		if (error !== null) {console.log('error:', error);}
+		var	tagList = $('#tags');
 		if (state !== null || undefined || "") {
 			$('#tags').removeClass('hidden').addClass('fadein');
-		}
-		var	tagList = $('#tags');
-		savedTags = uniq(state.contents.tags);
-		$(savedTags).each(function(index, tagName) {
-			var newTag = document.createElement('a');
-			newTag.href = '#';
-			newTag.innerHTML = tagName + " ";
-			tagList.append(newTag);
-		});
+			savedTags = uniq(state.contents.tags);
+			$(savedTags).each(function(index, tagName) {
+				var newTag = document.createElement('a');
+				newTag.href = '#';
+				newTag.innerHTML = tagName + " ";
+				tagList.append(newTag);
+			});
 
-		$('.tags-select a').click(function() {
-			var value = $(this).text(),
-					input = $('#user-tags-input');
-			if (input.val().indexOf(value) > -1) {return;}
-			else {input.val(input.val() + value);}
-	//		$(this).addClass('hidden');
-			return false;
-		});
+			$('.tags-select a').click(function() {
+				var value = $(this).text(),
+						input = $('#user-tags-input');
+				if (input.val().indexOf(value) > -1) {return;}
+				else {input.val(input.val() + value);}
+		//		$(this).addClass('hidden');
+				return false;
+			});
+		}
+		else {$(tagList).removeClass('hidden').html("No tags saved.");}
 	}
 
 	tincan.getState("tags", getStateCfg);

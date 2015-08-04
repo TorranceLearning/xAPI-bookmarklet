@@ -90,7 +90,7 @@ function startPostMessage() {
 			thisFavicon = "http://www.google.com/s2/favicons?domain=" + thisDomain,
 			username = window.rbmName,
 			email = window.rbmEmail,
-			pageData = [pageSource, thisFavicon, username, email, thisHref, text];
+			pageData = [pageSource, thisFavicon, username, email, thisHref, text, lrsEndpoint, lrsUsername, lrsPassword];
 	EnhancedPostMessage.trigger('getPageData', 'frameSource', pageData);
 }
 
