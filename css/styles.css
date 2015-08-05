@@ -11,13 +11,13 @@ span.prefix{
 /*	font-family: lato, sans-serif;*/
 }
 
+.hidden {
+	display: none;
+}
+
 .header {
 	background: #008CBA;
 /*	margin-bottom: 16px;*/
-}
-
-.hidden {
-	display: none;
 }
 
 .section-title {
@@ -29,7 +29,7 @@ span.prefix{
 }
 
 .frame-title {
-	margin: 18px 6px;
+	margin: 12px 6px;
 	color: #fff;
 }
 
@@ -195,12 +195,16 @@ input[type="text"], textarea, .panel {
 	background-color: #ebebeb;
 }
 
+.panel {
+	border-top: 0px;
+}
+
 ::-webkit-input-placeholder {color:#9a9a9a;}
 ::-moz-placeholder {color:#9a9a9a;}
 :-ms-input-placeholder {color:#9a9a9a;}
 
 .page-title {
-	padding: .9rem;
+	padding: 1.2rem;
 	margin-bottom: 12px;
 }
 
@@ -250,4 +254,43 @@ span.prefix {
 /*	margin-bottom:2px;*/
 	vertical-align:middle;
 	float:right;
+}
+
+.tabs-content > .content {
+	padding: 0;
+}
+
+.tabs {
+/*	margin-left: 14px;*/
+	text-align: center;
+}
+
+.tabs dd, .tabs .tab-title {
+	width: 50%;
+}
+
+.tabs dd > a, .tabs .tab-title > a {
+	padding: .5rem 1.3rem .4rem;
+
+	border-top-left-radius: 10px;
+	border-top-right-radius: 10px;
+	text-transform: uppercase;
+	font-weight: bold;
+	font-size: 1.2rem;
+	color: #DFC7AE;
+	background-color: #fff;
+}
+
+.tabs dd > a:focus, .tabs .tab-title > a:focus {
+	outline: none;
+}
+
+.tabs dd > a:hover, .tabs .tab-title > a:hover {
+	color: #D1873B;
+	background-color: #f2f2f2;
+}
+
+.tabs dd.active a, .tabs .tab-title.active a {
+	color: #D1873B;
+	background-color: #ebebeb;
 }

@@ -2567,7 +2567,7 @@ TinCan client library
 				@return {Object} TinCan.State retrieved when synchronous, or result from sendRequest
 				*/
 				retrieveState: function (key, cfg) {
-						var that = this;
+						var lrs = this;
 						this.log("retrieveState");
 						var requestParams = {},
 								requestCfg = {},
@@ -2638,7 +2638,7 @@ TinCan client library
 																try {
 																		result.contents = JSON.parse(result.contents);
 																} catch (ex) {
-																		that.log("retrieveState - failed to deserialize JSON: " + ex);
+																		lrs.log("retrieveState - failed to deserialize JSON: " + ex);
 																}
 														}
 												}
