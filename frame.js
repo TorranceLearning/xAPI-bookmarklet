@@ -1,12 +1,12 @@
-/*global $, document, EnhancedPostMessage, TinCan*/
+/*global $, document, EnhancedPostMessage, TinCan, setTimeout*/
 
 $(document).foundation();
 
 EnhancedPostMessage({listeners: {getPageData: processPageData}});
 
 function processPageData(pageData) {
-	var title = document.getElementById('page-title-text'),
-		thisFavicon = document.getElementById('favicon'),
+	var title = document.getElementById('page-title-text-create'),
+		thisFavicon = document.getElementById('favicon-create'),
 		pageTitle = pageData[0],
 		favicon = pageData[1],
 		username = pageData[2],
@@ -17,6 +17,10 @@ function processPageData(pageData) {
 		lrsUsername = pageData[7],
 		lrsPassword = pageData[8];
 	thisFavicon.src = favicon;
+	//temp
+	document.getElementById('tempfavicon').src = favicon;
+	document.getElementById('temptitle').innerHTML = pageTitle;
+	//end temp
 	title.innerHTML = pageTitle;
 	$(title).removeClass('hidden').addClass('fadein');
 
@@ -69,13 +73,8 @@ function processPageData(pageData) {
 			mbox: "mailto:" + email
 		},
 		recordStores: [{
-			// SCORM Cloud Test App(sandbox) ----->>
-//			endpoint: "https://cloud.scorm.com/tc/0JVWBNRYM0/sandbox/",
-//			auth: "Basic MEpWV0JOUllNMDpRejlrZ1oxUXpJa1JSNDZYVmlNcG81aHp6Qm1aY2RxRzNmYk5ESUNl",
-
 			endpoint: lrsEndpoint,
 			auth: "Basic " + TinCan.Utils.getBase64String(lrsUsername+":"+lrsPassword),
-
 			allowFail: false
 	}]
 	});
@@ -84,12 +83,22 @@ function processPageData(pageData) {
 
 	var ruuid = TinCan.Utils.getUUID();
 
-	var thisActivity =  {
-		id: "http://id.tincanapi.com/recipe/bookmarklet/base/1",
-		definition: {
-			type: "http://id.tincanapi.com/activitytype/recipe"
-		}
+	var bookmarked = {
+		id: "http://id.tincanapi.com/verb/bookmarked",
+		display: { "en-US": "bookmarked" }
 	};
+
+	var thisActivity = {
+		id: "http://id.tincanapi.com/recipe/bookmarklet/base/1",
+		definition: {	type: "http://id.tincanapi.com/activitytype/recipe"	}
+	};
+
+	var qualityID = "http://id.tincanapi.com/extension/quality-rating",
+			learnedID = "http://www.torrancelearning.com/xapi/bookmarklet/freeform/learned",
+			rememberID = "http://www.torrancelearning.com/xapi/bookmarklet/freeform/remember",
+			quoteID = "http://www.torrancelearning.com/xapi/bookmarklet/freeform/quote",
+			recommendID = "http://www.torrancelearning.com/xapi/bookmarklet/recommend",
+			faviconID = "http://www.torrancelearning.com/xapi/bookmarklet/favicon";
 
 	var getStateCfg = {
 		activity: thisActivity,
@@ -100,7 +109,7 @@ function processPageData(pageData) {
 	function uniq(a) {
 		var seen = {};
 		return a.filter(function(item) {
-				return seen.hasOwnProperty(item) ? false : (seen[item] = true);
+			return seen.hasOwnProperty(item) ? false : (seen[item] = true);
 		});
 	}
 
@@ -131,49 +140,86 @@ function processPageData(pageData) {
 		else {$(tagList).removeClass('hidden').html("No tags saved.");}
 	}
 
+	var getMore;
+	function queryLRS() {
+		tincan.getStatements({
+			params: {
+				//activity doesn't work on SCORM Cloud for some reason
+				verb: bookmarked,
+				limit: 5
+			},
+			callback: function (err, result) {
+				if (err !== null) {
+					// handle error
+					return;
+				}
+				getMore = result.more;
+				console.log('tincan:', tincan);
+				console.log('getMore:', getMore);
+				var retStmts = result.statements;
+				console.log("retStmts: ", retStmts);
+				$(retStmts).each(function(){
+					var extensions = this.context.extensions;
+					console.log('qualityID:', extensions[qualityID]);
+					console.log('learnedID:', extensions[learnedID]);
+
+					//search - document.documentElement.innerHTML.indexOf('text to search');
+				});
+
+			}
+		});
+	}
+
+	function getMoreStmts() {
+		tincan.recordStores[0].moreStatements({
+			url: getMore,
+			callback: function(err, response) {
+				console.log('response:', response);
+			}
+		});
+	}
+
+	$('#test-button').on('click', getMoreStmts);
+
 	tincan.getState("tags", getStateCfg);
+	setTimeout(queryLRS, 2000);
 
 	function createStmt() {
-	if (userRating === undefined) {userRating = 0;}
+		if (userRating === undefined) {userRating = 0;}
 
-	var userTags = [], xapiTags = [],
-			tagInput = $('#user-tags-input')[0].value;
-	tagInput = tagInput.trim();
-	userTags = tagInput.split(" ");
-	userTags = uniq(userTags);
+		var userTags = [], xapiTags = [],
+				tagInput = $('#user-tags-input')[0].value;
+		tagInput = tagInput.trim();
+		userTags = tagInput.split(" ");
+		userTags = uniq(userTags);
 
-	$(userTags).each(function(index, tagName){
-		var thisTag = {
-			id:"http://id.tincanapi.com/activity/tags/" + tagName,
-			definition: {type:"http://id.tincanapi.com/activitytype/tag"}
+		$(userTags).each(function(index, tagName){
+			var thisTag = {
+				id:"http://id.tincanapi.com/activity/tags/" + tagName,
+				definition: {type:"http://id.tincanapi.com/activitytype/tag"}
+			};
+			xapiTags.push(thisTag);
+		});
+
+		var setStateCfg = {
+			activity: thisActivity,
+	//		registration: ruuid,
+	//		lastSHA1: "", //TinCan.Utils.getSHA1String(a)
+			contentType: "application/json",
+			callback: function(err, setState) {
+				console.log('err:', err);
+				console.log('setState:', setState);
+			}
 		};
-		xapiTags.push(thisTag);
-	});
 
-	var setStateCfg = {
-		activity: thisActivity,
-//		registration: ruuid,
-//		lastSHA1: "", //TinCan.Utils.getSHA1String(a)
-		contentType: "application/json",
-		callback: function(err, setState) {
-			console.log('err:', err);
-			console.log('setState:', setState);
-		}
-	};
+		var combinedTags = savedTags.concat(userTags);
+			console.log('combinedTags:', combinedTags);
+		var setStateTags = {"tags": combinedTags};
 
-	var combinedTags = savedTags.concat(userTags);
-		console.log('combinedTags:', combinedTags);
-	var setStateTags = {"tags": combinedTags};
-
-	tincan.setState("tags", setStateTags, setStateCfg);
+		tincan.setState("tags", setStateTags, setStateCfg);
 
 	var bookmark = {
-		verb: {
-			id: "http://id.tincanapi.com/verb/bookmarked",
-			display: {
-				"en-US": "bookmarked"
-			}
-		},
+		verb: bookmarked,
 		target: {
 			id: pageHref,
 			definition: {
@@ -189,32 +235,37 @@ function processPageData(pageData) {
 				category: thisActivity,
 				other: xapiTags
 			},
-			extensions: {
-				"http://id.tincanapi.com/extension/quality-rating": {
-					"min":1,
-					"max":5,
-					"raw":userRating
-				},
-				"http://www.torrancelearning.com/xapi/bookmarklet/freeform/learned": {
-					"label": learnedLabel,
-					"response": learned,
-				},
-				"http://www.torrancelearning.com/xapi/bookmarklet/freeform/remember": {
-					"label": rememberLabel,
-					"response": remember,
-				},
-				"http://www.torrancelearning.com/xapi/bookmarklet/freeform/quote": {
-					"label": quoteLabel,
-					"response": quote,
-				},
-				"http://www.torrancelearning.com/xapi/bookmarklet/recommend": {
-					"label": recommendLabel,
-					"response": recommendAnswer,
-				},
-				"http://www.torrancelearning.com/xapi/bookmarklet/favicon": favicon
-			}
+			extensions: {}
 		}
 	};
+
+	bookmark.context.extensions[qualityID] = {
+		"min":1,
+		"max":5,
+		"raw":userRating
+	};
+
+	bookmark.context.extensions[learnedID] = {
+		"label": learnedLabel,
+		"response": learned
+	};
+
+	bookmark.context.extensions[rememberID] = {
+		"label": rememberLabel,
+		"response": remember,
+	};
+
+	bookmark.context.extensions[quoteID] = {
+		"label": quoteLabel,
+		"response": quote,
+	};
+
+	bookmark.context.extensions[recommendID] = {
+		"label": recommendLabel,
+		"response": recommendAnswer,
+	};
+
+	bookmark.context.extensions[faviconID] = favicon;
 
 	tincan.sendStatement(bookmark, sendCallback);
 }
@@ -239,7 +290,7 @@ function processPageData(pageData) {
 					$(element).addClass('hidden').removeClass('slide-down');
 				}, 500);
 		}, 3000);
-	};
+	}
 
 	function sendCallback(status, stmtID) {
 		var sentStatus = status[0].xhr.status;

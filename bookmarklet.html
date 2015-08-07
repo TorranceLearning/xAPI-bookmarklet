@@ -32,12 +32,12 @@
 
 			<div class="row bookmark-box">
 				<div class="small-12 columns">
-					<div class="page-title row panel">
+					<div class="page-title row panel no-top">
 						<div class="page-title-left">
-							<img id="favicon">
+							<img id="favicon-create" class="favicon">
 						</div>
 						<div class="page-title-right">
-							<p id="page-title-text" class="hidden"></p>
+							<p id="page-title-text-create" class="page-title-text hidden"></p>
 						</div>
 					</div>
 				</div>
@@ -45,19 +45,20 @@
 
 			<div class="entry">
 				<div class="row">
-					<div class="section-title"><span class="inline-title">Rating:</span>
+					<div class="section-title">
+						<span class="inline-title">Rating:</span>
 						<span class="starRating">
-					<input class="userRating" id="star5" type="radio" name="rating" value="5">
-					<label for="star5">5</label>
-					<input class="userRating" id="star4" type="radio" name="rating" value="4">
-					<label for="star4">4</label>
-					<input class="userRating" id="star3" type="radio" name="rating" value="3">
-					<label for="star3">3</label>
-					<input class="userRating" id="star2" type="radio" name="rating" value="2">
-					<label for="star2">2</label>
-					<input class="userRating" id="star1" type="radio" name="rating" value="1">
-					<label for="star1">1</label>
-				</span>
+							<input class="userRating" id="star5" type="radio" name="rating" value="5">
+							<label class="starBigLabel" for="star5">5</label>
+							<input class="userRating" id="star4" type="radio" name="rating" value="4">
+							<label class="starBigLabel" for="star4">4</label>
+							<input class="userRating" id="star3" type="radio" name="rating" value="3">
+							<label class="starBigLabel" for="star3">3</label>
+							<input class="userRating" id="star2" type="radio" name="rating" value="2">
+							<label class="starBigLabel" for="star2">2</label>
+							<input class="userRating" id="star1" type="radio" name="rating" value="1">
+							<label class="starBigLabel" for="star1">1</label>
+						</span>
 					</div>
 				</div>
 
@@ -112,15 +113,70 @@
 			<div data-alert id="tincan-ok" class="hidden alert-box success radius">Bookmark successful!
 				<button class="close">&times;</button>
 			</div>
-			<div data-alert id="tincan-fail" class="hidden alert-box alert radius">Bookmark failed to save. Try again?
+			<div data-alert id="tincan-fail" class="hidden alert-box alert  radius">Bookmark failed to save. Try again?
 				<button class="close">&times;</button>
 			</div>
 		</div>
 		<!--end panel-create-->
 		<div class="content" id="panel-history">
-			<div class="row panel">
+			<div class="row panel no-top">
+				<p>Filter by tag:</p>
 			</div>
-
+			<!--						<a href="#" id="test-button" class="small button">get more</a>-->
+			<div class="row history-list-page">
+				<ul id="history-list">
+					<li class="panel history-list-item">
+						<div class="page-title-left">
+							<img id="tempfavicon" class="favicon">
+						</div>
+						<div class="page-title-right">
+							<p id="temptitle" class="page-title-text inline">Title</p>
+						</div>
+						<div>
+							<span class="starRatingDisplay starSmall">
+								<input class="userRating" id="smallstar5" type="radio" name="rating" value="5" disabled checked>
+								<label class="starSmallLabel" for="smallstar5">5</label>
+								<input class="userRating" id="smallstar4" type="radio" name="rating" value="4" disabled>
+								<label class="starSmallLabel" for="smallstar4">4</label>
+								<input class="userRating" id="smallstar3" type="radio" name="rating" value="3" disabled>
+								<label class="starSmallLabel" for="smallstar3">3</label>
+								<input class="userRating" id="smallstar2" type="radio" name="rating" value="2" disabled>
+								<label class="starSmallLabel" for="smallstar2">2</label>
+								<input class="userRating" id="smallstar1" type="radio" name="rating" value="1" disabled>
+								<label class="starSmallLabel" for="smallstar1">1</label>
+							</span>
+							<p class="inline history-list-date">August 7, 2015 @ 2:13PM</p>
+						</div>
+					</li>
+				</ul>
+			</div>
+			<div class="row history-single-page hidden">
+				<div class="panel history-list-item">
+					<div class="page-title-left">
+						<img id="tempfavicon" class="favicon">
+					</div>
+					<div class="page-title-right">
+						<p id="temptitle" class="page-title-text inline">Title</p>
+					</div>
+						<div>
+							<span class="starRating starSmall">
+								<input class="userRating" id="star5" type="radio" name="rating" value="5" checked>
+								<label class="starSmallLabel" for="star5">5</label>
+								<input class="userRating" id="star4" type="radio" name="rating" value="4">
+								<label class="starSmallLabel" for="star4">4</label>
+								<input class="userRating" id="star3" type="radio" name="rating" value="3">
+								<label class="starSmallLabel" for="star3">3</label>
+								<input class="userRating" id="star2" type="radio" name="rating" value="2">
+								<label class="starSmallLabel" for="star2">2</label>
+								<input class="userRating" id="star1" type="radio" name="rating" value="1">
+								<label class="starSmallLabel" for="star1">1</label>
+							</span>
+							<p class="inline history-list-date">August 7, 2015 @ 2:13PM</p>
+						</div>
+				</div>
+				<!--end history-list-item-->
+			</div>
+			<!--end history-single-page-->
 		</div>
 		<!--end panel-history-->
 	</div>

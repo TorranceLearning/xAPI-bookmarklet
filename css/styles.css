@@ -1,4 +1,5 @@
 body,
+p,
 h1,
 h2,
 h3,
@@ -37,7 +38,7 @@ span.prefix{
 	display: inline;
 }
 
-#favicon {
+.favicon {
 	padding-left: 5px;
 	margin-top: -3px;
 	width: 26px;
@@ -83,7 +84,7 @@ span.prefix{
 
 /* Star rating -------:not(old)----------------*/
 
-.starRating{
+.starRating, .starRatingDisplay{
 	display        : inline-block;
 	width          : 15em;
 	height         : 2em;
@@ -93,7 +94,7 @@ span.prefix{
 	margin-left		 : -32px;
 }
 
-.starRating > input{
+.starRating > input, .starRatingDisplay > input{
 	margin-right : -100%;
 	opacity      : 0;
 }
@@ -102,7 +103,7 @@ input[type="radio"] + label {
 	margin-right: 3px;
 }
 
-.starRating > label{
+.starRating > label, .starRatingDisplay > label{
 	display         : block;
 	float           : right;
 	position        : relative;
@@ -111,7 +112,7 @@ input[type="radio"] + label {
 	font-size 			: 1em;
 }
 
-.starRating > label:before{
+.starRating > label:before, .starRatingDisplay > label:before{
 	content         : '';
 	display         : block;
 	width           : 2em;
@@ -124,7 +125,8 @@ input[type="radio"] + label {
 
 .starRating > label:hover:before,
 .starRating > label:hover ~ label:before,
-.starRating:not(:hover) > :checked ~ label:before{
+.starRating:not(:hover) > :checked ~ label:before,
+.starRatingDisplay:not(:hover) > :checked ~ label:before{
 	opacity : 1;
 }
 
@@ -195,10 +197,6 @@ input[type="text"], textarea, .panel {
 	background-color: #ebebeb;
 }
 
-.panel {
-	border-top: 0px;
-}
-
 ::-webkit-input-placeholder {color:#9a9a9a;}
 ::-moz-placeholder {color:#9a9a9a;}
 :-ms-input-placeholder {color:#9a9a9a;}
@@ -213,7 +211,7 @@ input[type="text"], textarea, .panel {
 	margin-right: 6px;
 }
 
-#page-title-text {
+p.page-title-text {
 	line-height: 1.2em;
 	margin:0;
 	color: #008CBA;
@@ -293,4 +291,41 @@ span.prefix {
 .tabs dd.active a, .tabs .tab-title.active a {
 	color: #D1873B;
 	background-color: #ebebeb;
+}
+
+#history-list {
+	width: 90%;
+	margin: 0 auto;
+	padding:0px;
+}
+
+.history-list-item {
+	list-style: none;
+	display: inline-block;
+	padding:10px;
+	width: 100%;
+}
+
+div.no-top {
+	border-top: 0px;
+}
+
+.starSmall > label {
+	font-size: 0.8em;
+}
+
+input[type="radio"] + label.starSmallLabel {
+	margin-right: -1px;
+}
+
+.starSmall {
+	margin: 6px 0px 0px -81px;
+	height: 1.7em;
+}
+
+p.history-list-date {
+	font-size: .8rem;
+	margin-left: 15px;
+	font-weight: bold;
+	color: #949494;
 }
