@@ -18,8 +18,8 @@ function processPageData(pageData) {
 		lrsPassword = pageData[8];
 	thisFavicon.src = favicon;
 	//temp
-	document.getElementById('tempfavicon').src = favicon;
-	document.getElementById('temptitle').innerHTML = pageTitle;
+//	document.getElementById('tempfavicon').src = favicon;
+//	document.getElementById('temptitle').innerHTML = pageTitle;
 	//end temp
 	title.innerHTML = pageTitle;
 	$(title).removeClass('hidden').addClass('fadein');
@@ -80,6 +80,7 @@ function processPageData(pageData) {
 	});
 
 	TinCan.DEBUG = true;
+
 
 	var ruuid = TinCan.Utils.getUUID();
 
@@ -157,18 +158,32 @@ function processPageData(pageData) {
 				console.log('tincan:', tincan);
 				console.log('getMore:', getMore);
 				var retStmts = result.statements;
+				compileHandlebars(retStmts);
 				console.log("retStmts: ", retStmts);
 				$(retStmts).each(function(){
 					var extensions = this.context.extensions;
-					console.log('qualityID:', extensions[qualityID]);
-					console.log('learnedID:', extensions[learnedID]);
-
+//					console.log('qualityID:', extensions[qualityID]);
+//					console.log('learnedID:', extensions[learnedID]);
+					console.log('favicon:', extensions[faviconID]);
 					//search - document.documentElement.innerHTML.indexOf('text to search');
 				});
 
 			}
 		});
 	}
+
+	function compileHandlebars(content) {
+		var historyListSource   = $("#history-list-item-template").html();
+		var historyListTemplate = Handlebars.compile(historyListSource);
+		var html = historyListTemplate(content);
+		console.log('content:', content);
+		console.log('html:', html);
+		$('#history-list').append(html);
+	}
+
+	Handlebars.registerHelper('favicon', function(extensions) {
+		return extensions[faviconID];
+	});
 
 	function getMoreStmts() {
 		tincan.recordStores[0].moreStatements({

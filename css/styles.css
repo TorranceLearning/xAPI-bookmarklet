@@ -125,10 +125,32 @@ input[type="radio"] + label {
 
 .starRating > label:hover:before,
 .starRating > label:hover ~ label:before,
+
+.starRatingDisplay > label:hover:before,
+.starRatingDisplay > label:hover ~ label:before,
+
 .starRating:not(:hover) > :checked ~ label:before,
 .starRatingDisplay:not(:hover) > :checked ~ label:before{
 	opacity : 1;
 }
+
+/*
+input[type="radio"]:checked {
+	opacity: 1;
+}
+*/
+
+/*
+.starRatingDisplay > :checked ~ label:before {
+	opacity: 1;
+}
+*/
+
+/*
+.starRatingDisplay > label:before {
+	opacity: 1;
+}
+*/
 
 /*Radio Buttons - recommend*/
 

@@ -125,55 +125,61 @@
 			<!--						<a href="#" id="test-button" class="small button">get more</a>-->
 			<div class="row history-list-page">
 				<ul id="history-list">
+				<script id="history-list-item-template" type="text/x-handlebars-template">
+					{{#each this}}
 					<li class="panel history-list-item">
+						<div class="page-title-left">
+							<img id="tempfavicon" class="favicon" src="{{favicon context.extensions}}">
+						</div>
+						<div class="page-title-right">
+							<p id="temptitle" class="page-title-text inline">{{target}}</p>
+						</div>
+						<div>
+							<span class="starRatingDisplay starSmall">
+								<input class="userRating" id="smallstar5" type="radio" name="rating" value="5" />
+								<label class="starSmallLabel" for="smallstar5">5</label>
+								<input class="userRating" id="smallstar4" type="radio" name="rating" value="4" checked />
+								<label class="starSmallLabel" for="smallstar4">4</label>
+								<input class="userRating" id="smallstar3" type="radio" name="rating" value="3" />
+								<label class="starSmallLabel" for="smallstar3">3</label>
+								<input class="userRating" id="smallstar2" type="radio" name="rating" value="2" />
+								<label class="starSmallLabel" for="smallstar2">2</label>
+								<input class="userRating" id="smallstar1" type="radio" name="rating" value="1" />
+								<label class="starSmallLabel" for="smallstar1">1</label>
+							</span>
+							<p class="inline history-list-date">August 7, 2015 @ 2:13PM</p>
+						</div>
+					</li>
+					{{/each}}
+					</script>
+				</ul>
+			</div>
+			<div class="row history-single-page hidden">
+				<script id="single-history-template" type="text/x-handlebars-template">
+					<div class="panel history-list-item">
 						<div class="page-title-left">
 							<img id="tempfavicon" class="favicon">
 						</div>
 						<div class="page-title-right">
 							<p id="temptitle" class="page-title-text inline">Title</p>
 						</div>
-						<div>
-							<span class="starRatingDisplay starSmall">
-								<input class="userRating" id="smallstar5" type="radio" name="rating" value="5" disabled checked>
-								<label class="starSmallLabel" for="smallstar5">5</label>
-								<input class="userRating" id="smallstar4" type="radio" name="rating" value="4" disabled>
-								<label class="starSmallLabel" for="smallstar4">4</label>
-								<input class="userRating" id="smallstar3" type="radio" name="rating" value="3" disabled>
-								<label class="starSmallLabel" for="smallstar3">3</label>
-								<input class="userRating" id="smallstar2" type="radio" name="rating" value="2" disabled>
-								<label class="starSmallLabel" for="smallstar2">2</label>
-								<input class="userRating" id="smallstar1" type="radio" name="rating" value="1" disabled>
-								<label class="starSmallLabel" for="smallstar1">1</label>
-							</span>
-							<p class="inline history-list-date">August 7, 2015 @ 2:13PM</p>
-						</div>
-					</li>
-				</ul>
-			</div>
-			<div class="row history-single-page hidden">
-				<div class="panel history-list-item">
-					<div class="page-title-left">
-						<img id="tempfavicon" class="favicon">
+							<div>
+								<span class="starRating starSmall">
+									<input class="userRating" id="star5" type="radio" name="rating" value="5" checked>
+									<label class="starSmallLabel" for="star5">5</label>
+									<input class="userRating" id="star4" type="radio" name="rating" value="4">
+									<label class="starSmallLabel" for="star4">4</label>
+									<input class="userRating" id="star3" type="radio" name="rating" value="3">
+									<label class="starSmallLabel" for="star3">3</label>
+									<input class="userRating" id="star2" type="radio" name="rating" value="2">
+									<label class="starSmallLabel" for="star2">2</label>
+									<input class="userRating" id="star1" type="radio" name="rating" value="1">
+									<label class="starSmallLabel" for="star1">1</label>
+								</span>
+								<p class="inline history-list-date">August 7, 2015 @ 2:13PM</p>
+							</div>
 					</div>
-					<div class="page-title-right">
-						<p id="temptitle" class="page-title-text inline">Title</p>
-					</div>
-						<div>
-							<span class="starRating starSmall">
-								<input class="userRating" id="star5" type="radio" name="rating" value="5" checked>
-								<label class="starSmallLabel" for="star5">5</label>
-								<input class="userRating" id="star4" type="radio" name="rating" value="4">
-								<label class="starSmallLabel" for="star4">4</label>
-								<input class="userRating" id="star3" type="radio" name="rating" value="3">
-								<label class="starSmallLabel" for="star3">3</label>
-								<input class="userRating" id="star2" type="radio" name="rating" value="2">
-								<label class="starSmallLabel" for="star2">2</label>
-								<input class="userRating" id="star1" type="radio" name="rating" value="1">
-								<label class="starSmallLabel" for="star1">1</label>
-							</span>
-							<p class="inline history-list-date">August 7, 2015 @ 2:13PM</p>
-						</div>
-				</div>
+				</script>
 				<!--end history-list-item-->
 			</div>
 			<!--end history-single-page-->
@@ -184,6 +190,7 @@
 
 	<script src="EnhancedPostMessage.min.js"></script>
 	<script src="tincan.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.3/handlebars.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 	<script src="http://cdn.foundation5.zurb.com/foundation.js"></script>
 	<script src="frame.js"></script>
