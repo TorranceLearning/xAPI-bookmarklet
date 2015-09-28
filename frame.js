@@ -1,4 +1,4 @@
-/*global $, document, EnhancedPostMessage, TinCan, setTimeout*/
+/*global $, document, EnhancedPostMessage, TinCan, setTimeout, Handlebars*/
 
 $(document).foundation();
 
