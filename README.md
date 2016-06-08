@@ -3,7 +3,7 @@ xAPI-enabled bookmarklet (WIP)
 
 Pardon the mess. It's unfinished, but good luck if you decide to wade through it...
 
-# License
+### License
 Copyright 2016 TorranceLearning
 
 Licensed under the Apache License, Version 2.0 (the "License");
