@@ -1,0 +1,213 @@
+<!doctype html>
+<html class="no-js" lang="en">
+
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Personal Learning Library</title>
+
+	<!-- <link rel="stylesheet" href="css/foundation.min.css" /> -->
+	<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script> -->
+	<link rel="stylesheet" href="css/styles.css" />
+	<!--	<script src="http://use.edgefonts.net/lato:n9,i4,n1,i7,i9,n7,i1,i3,n4,n3:all.js"></script>-->
+
+</head>
+
+<body>
+	<div class="row header">
+		<h3 class="frame-title text-center"><strong>PERSONAL LEARNING LIBRARY</strong></h3>
+		<ul class="tabs" data-tab>
+			<li class="tab-title active"><a href="#panel-create">Create</a>
+			</li>
+			<li class="tab-title"><a href="#panel-history">History</a>
+			</li>
+
+		</ul>
+	</div>
+
+	<div class="tabs-content">
+		<div class="content active" id="panel-create">
+
+		<div class="page-title panel no-top">
+			<img class="page-favicon favicon" />
+			<span class="page-title-text"></span>
+			<span class="page-url"></span>
+
+		</div>
+			<!-- <div class="bookmark-box">
+				<div class="page-title panel no-top">
+					<div class="page-title-left">
+						<img id="favicon-create" class="favicon">
+					</div>
+					<div class="page-title-right">
+						<p id="page-title-text-create" class="page-title-text"></p>
+					</div>
+				</div>
+			</div> -->
+
+			<div class="form-create-wrapper">
+
+
+				<div class="flex-row">
+					<div class="flex-col-left">
+
+						<div class="row">
+							<div class="section-title">
+								<span class="inline-title">Rating:</span>
+								<span class="starRating">
+									<input class="userRating" id="star5" type="radio" name="rating" value="5">
+									<label class="starBigLabel" for="star5">5</label>
+									<input class="userRating" id="star4" type="radio" name="rating" value="4">
+									<label class="starBigLabel" for="star4">4</label>
+									<input class="userRating" id="star3" type="radio" name="rating" value="3">
+									<label class="starBigLabel" for="star3">3</label>
+									<input class="userRating" id="star2" type="radio" name="rating" value="2">
+									<label class="starBigLabel" for="star2">2</label>
+									<input class="userRating" id="star1" type="radio" name="rating" value="1">
+									<label class="starBigLabel" for="star1">1</label>
+								</span>
+							</div>
+						</div>
+
+						<!-- <form> -->
+						<div class="row">
+							<div>
+								<label for="learned" class="section-title">I learned:</label>
+								<textarea id="learned" placeholder="Enter text here"></textarea>
+							</div>
+
+							<div>
+								<label for="remember" class="section-title">I want to remember:</label>
+								<textarea id="remember" placeholder="Enter text here"></textarea>
+							</div>
+
+							<div>
+								<label for="quote" class="section-title">Selected text:</label>
+								<textarea id="quote" rows="4" placeholder="Select text on the page, then press the button below"></textarea>
+								<span id="add-selected" class="label primary button inline">Add selected</span>
+							</div>
+						</div>
+					</div>
+
+					<div class="flex-col-right">
+
+						<div class="row" style="margin-top: 0.8em;">
+							<label for="recommend" class="section-title">Would you recommend this to others?</label>
+							<input type="radio" class="recommend" name="recommend" value="Yes" id="recommend-yes">
+							<label for="recommend-yes"><span></span>Yes</label>
+							<input type="radio" class="recommend" name="recommend" value="No" id="recommend-no">
+							<label for="recommend-no"><span></span>No</label>
+						</div>
+
+						<div class="row tags-select" id="tag-box">
+							<span class="prefix">Tags:</span>
+							<input type="text" id="user-tags-input" placeholder="Separate tags with spaces">
+						</div>
+						<p id="tag-row" class="small-text light"><strong>Your tags:</strong>
+							<span id="tags" class="hidden"></span>
+						</p>
+
+						<div class="bottom-buttons">
+							<ul class="button-group">
+								<button type="button" id="add-button" class="small primary button">Add Bookmark</button>
+								<button type="button" id="close-frame" class="small secondary button">Cancel</button>
+							</ul>
+						</div>
+
+						<!-- </form> -->
+					</div>
+
+				</div>
+
+			</div>
+
+
+			<div data-alert id="tincan-ok" class="hidden alert-box success radius">Bookmark successful!
+				<button class="close">&times;</button>
+			</div>
+			<div data-alert id="tincan-fail" class="hidden alert-box alert  radius">Bookmark failed to save. Try again?
+				<button class="close">&times;</button>
+			</div>
+		</div>
+		<!--end panel-create-->
+		<div class="content hidden" id="panel-history">
+			<div class="row panel no-top">
+				<p>Filter by tag:</p>
+			</div>
+			<!--						<a href="#" id="test-button" class="small button">get more</a>-->
+			<div class="row history-list-page">
+				<ul id="history-list">
+				<script id="history-list-item-template" type="text/x-handlebars-template">
+				{{#each this}}
+				<li class="panel history-list-item">
+				<div class="page-title-left">
+				<img id="tempfavicon" class="favicon" src="{{favicon context.extensions}}">
+				</div>
+				<div class="page-title-right">
+				<p id="temptitle" class="page-title-text inline">{{target}}</p>
+				</div>
+				<div>
+				<span class="starRatingDisplay starSmall">
+				<input class="userRating" id="smallstar5" type="radio" name="rating" value="5" />
+				<label class="starSmallLabel" for="smallstar5">5</label>
+				<input class="userRating" id="smallstar4" type="radio" name="rating" value="4" checked />
+				<label class="starSmallLabel" for="smallstar4">4</label>
+				<input class="userRating" id="smallstar3" type="radio" name="rating" value="3" />
+				<label class="starSmallLabel" for="smallstar3">3</label>
+				<input class="userRating" id="smallstar2" type="radio" name="rating" value="2" />
+				<label class="starSmallLabel" for="smallstar2">2</label>
+				<input class="userRating" id="smallstar1" type="radio" name="rating" value="1" />
+				<label class="starSmallLabel" for="smallstar1">1</label>
+				</span>
+				<p class="inline history-list-date">August 7, 2015 @ 2:13PM</p>
+				</div>
+				</li>
+				{{/each}}
+				</script>
+			</ul>
+		</div>
+		<div class="row history-single-page hidden">
+		<script id="single-history-template" type="text/x-handlebars-template">
+		<div class="panel history-list-item">
+		<div class="page-title-left">
+		<img id="tempfavicon" class="favicon">
+		</div>
+		<div class="page-title-right">
+		<p id="temptitle" class="page-title-text inline">Title</p>
+		</div>
+		<div>
+		<span class="starRating starSmall">
+		<input class="userRating" id="star5" type="radio" name="rating" value="5" checked>
+		<label class="starSmallLabel" for="star5">5</label>
+		<input class="userRating" id="star4" type="radio" name="rating" value="4">
+		<label class="starSmallLabel" for="star4">4</label>
+		<input class="userRating" id="star3" type="radio" name="rating" value="3">
+		<label class="starSmallLabel" for="star3">3</label>
+		<input class="userRating" id="star2" type="radio" name="rating" value="2">
+		<label class="starSmallLabel" for="star2">2</label>
+		<input class="userRating" id="star1" type="radio" name="rating" value="1">
+		<label class="starSmallLabel" for="star1">1</label>
+		</span>
+		<p class="inline history-list-date">August 7, 2015 @ 2:13PM</p>
+		</div>
+		</div>
+		</script>
+		<!--end history-list-item-->
+	</div>
+	<!--end history-single-page-->
+</div>
+<!--end panel-history-->
+</div>
+<!--end tabs-content-->
+<!--
+<script src="EnhancedPostMessage.min.js"></script>
+<script src="tincan.js"></script>-->
+<script src="js/lib/jquery.js"></script>
+<script src="js/lib/handlebars-v4.0.5.js"></script>
+<!-- <script src="js/lib/foundation.min.js"></script> -->
+
+<script src="js/frame.js"></script>
+
+</body>
+
+</html>

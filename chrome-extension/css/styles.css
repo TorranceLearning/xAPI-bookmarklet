@@ -1,0 +1,492 @@
+body {
+	width: 740px;
+	margin: 0;
+	padding: 0 1rem 1rem;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	font-size: 14px;
+	background: #008CBA;
+
+}
+
+body,
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+label,
+span.prefix{
+	color: gray;
+	/*	font-family: lato, sans-serif;*/
+}
+
+.hidden {
+	display: none;
+}
+
+.flex-col-left {
+	padding-right: 1.5rem;
+	flex: 1;
+}
+
+.flex-col-right {
+	padding-left: 1.5rem;
+	flex: 1;
+	border-left: 1px solid rgb(230,230,230);
+}
+
+.flex-row {
+	display: flex;
+	flex-direction: row;
+}
+
+.row {
+	width: 100%;
+}
+
+.button-group {
+	margin: 0;
+	padding: 0;
+}
+
+.button-group .button {
+	margin-right: .07em;
+}
+
+.button {
+	cursor: pointer;
+	border-radius: 3px;
+	border: 0;
+	padding: 0.8em 1em;
+	font-size: 1em;
+	transition: all 0.1s linear;
+}
+
+.button:focus {
+	outline: none;
+}
+
+.primary.button {
+	background-color: #008CBA;
+	color: white;
+}
+
+.primary.button:hover {
+	background-color: #086888;
+}
+
+.secondary.button {
+	background-color: #d4d4d4;
+	color: gray;
+}
+
+.secondary.button:hover {
+	background-color: #bfbfbf;
+}
+
+input, textarea, select {
+	width: 96%;
+	padding: 2%;
+	font-size: 1em;
+	border: 1px solid #cccccc;
+	box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+	margin-bottom: 0.8em;
+  background: #ebebeb;
+	transition: border-color 0.15s linear, background 0.15s linear;
+}
+
+input:focus, textarea:focus, select:focus {
+	outline: 2px solid #008cba;
+	background: #dfdfdf}
+
+.header {
+	text-align: center;
+	/*	margin-bottom: 16px;*/
+}
+
+.section-title {
+	font-size: 17px;
+	font-weight: bold;
+	display: block;
+	cursor: default;
+	margin-bottom: 0.6em;
+}
+
+.frame-title {
+	margin: 12px 6px;
+	font-size: 1.3em;
+	color: #fff;
+}
+
+.inline {
+	display: inline;
+}
+
+.favicon {
+	padding-left: 5px;
+	margin-top: -3px;
+	width: 26px;
+}
+
+.bottom-buttons {
+	position: absolute;
+	bottom: 2em;
+	right: 2em;
+}
+
+.alert-box {
+	position: fixed;
+	bottom: 0px;
+	margin: 0 auto;
+	width: 100%;
+}
+
+.slide-up {
+	animation: slideup 0.5s ease;
+}
+
+.slide-down {
+	animation: slidedown 0.5s ease;
+}
+
+.fadein {
+	animation: fadein 0.5s;
+}
+
+@keyframes slideup {
+	from {transform: translate(0px, 49px);}
+	to {transform: translate(0px, 0px);}
+}
+
+@keyframes slidedown {
+	from {transform: translate(0px, 0px);}
+	to {transform: translate(0px, 49px);}
+}
+
+@keyframes fadein {
+	from {opacity: 0}
+	to {opacity: 1}
+}
+
+/* Star rating -------:not(old)----------------*/
+
+.starRating, .starRatingDisplay{
+	display        : inline-block;
+	width          : 15em;
+	height         : 2em;
+	overflow       : hidden;
+	vertical-align : bottom;
+	margin-bottom	 : 7px;
+	margin-left		 : -32px;
+}
+
+.starRating > input, .starRatingDisplay > input{
+	margin-right : -100%;
+	opacity      : 0;
+}
+
+input[type="radio"] + label {
+	/*margin-right: 3px;*/
+	margin-right: 9px;
+}
+
+.starRating > label, .starRatingDisplay > label{
+	display         : block;
+	float           : right;
+	position        : relative;
+	background      : url('../images/star-off.svg');
+	background-size : contain;
+	font-size 			: 1em;
+}
+
+.starRating > label:before, .starRatingDisplay > label:before{
+	content         : '';
+	display         : block;
+	width           : 2em;
+	height          : 2em;
+	background      : url('../images/star-on.svg');
+	background-size : contain;
+	opacity         : 0;
+	transition      : opacity 0.1s linear;
+	cursor: pointer;
+}
+
+.starRating > label:hover:before,
+.starRating > label:hover ~ label:before,
+
+.starRatingDisplay > label:hover:before,
+.starRatingDisplay > label:hover ~ label:before,
+
+.starRating:not(:hover) > :checked ~ label:before,
+.starRatingDisplay:not(:hover) > :checked ~ label:before{
+	opacity : 1;
+}
+
+/*
+input[type="radio"]:checked {
+opacity: 1;
+}
+*/
+
+/*
+.starRatingDisplay > :checked ~ label:before {
+opacity: 1;
+}
+*/
+
+/*
+.starRatingDisplay > label:before {
+opacity: 1;
+}
+*/
+
+/*Radio Buttons - recommend*/
+
+input.recommend[type="radio"] {
+	display: none;
+}
+
+input.recommend[type="radio"] + label {
+	margin-right: 1.5rem;
+	margin-left: 0;
+}
+
+input.recommend[type="radio"] + label span {
+	display: inline-block;
+	width: 19px;
+	height: 19px;
+	margin: -1px 6px 0 0;
+	vertical-align: middle;
+	cursor: pointer;
+	border-width: 2px;
+	border-color: #CCCCCC;
+	border-style: solid;
+	-moz-border-radius: 50%;
+	border-radius: 50%;
+	/*	background-color: #9a9a9a;*/
+	background-color: rgba(255, 255, 255, 0);
+
+}
+
+input.recommend[type="radio"]:checked + label span {
+	border-color: #75923C;
+	background-color: #99CC33;
+}
+
+input.recommend[type="radio"] + label span,
+input.recommend[type="radio"]:checked + label span {
+	-webkit-transition: background-color 0.2s linear;
+	-o-transition: background-color 0.2s linear;
+	-moz-transition: background-color 0.2s linear;
+	transition: background-color 0.2s linear;
+}
+
+.light {
+	color: #969696;
+}
+
+p.small-text {
+	margin: 0.5rem 0 .7rem;
+	font-size: 14px;
+	padding-left: 13px;
+}
+
+#tags {
+	margin-left: 4px;
+}
+
+label.section-title > em{
+	font-weight: normal;
+}
+
+#user-tags-input {
+	flex: 7;
+	height: 40px;
+	margin: 0;
+	padding: 0 4%;
+}
+
+input[type="text"], textarea, .panel {
+	background-color: #ebebeb;
+}
+
+::-webkit-input-placeholder {color:#9a9a9a;}
+::-moz-placeholder {color:#9a9a9a;}
+:-ms-input-placeholder {color:#9a9a9a;}
+
+.page-title {
+	padding: 1.2rem;
+	margin-bottom: 12px;
+	display: flex;
+	align-items: center;
+}
+
+.page-favicon {
+	margin-right: 0.5em;
+}
+
+.inline-title {
+	line-height: 2.7em;
+	margin-right: 6px;
+}
+
+.page-title-text {
+	line-height: 1.2em;
+	font-size: 1.3em;
+	margin-right: 0.5em;
+	color: #008CBA;
+	font-weight:bold;
+}
+
+.page-url {
+	font-size: 1em;
+	font-weight: 300;
+	color: gray;
+}
+
+.bookmark-box {
+	margin-bottom: 8px;
+}
+
+.form-create-wrapper {
+	padding-left: 1.5rem;
+	padding-right: 1.5rem;
+}
+
+.page-title-right {
+	width:91%;
+	float:right;
+
+}
+
+.page-title-left {
+	width:9%;
+	float:left;
+}
+
+.tags-select {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+}
+
+span.prefix {
+	/*font-size: 14px;*/
+	background-color: rgb(213, 213, 213);
+	flex: 2;
+	height: 42px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-weight: bold;
+}
+
+#tag-box {
+	margin-top: 1em;
+}
+
+/*label[for="quote"] {
+	float: left;
+}*/
+
+#add-selected.label.button {
+	/*float: right;*/
+	font-size: 0.8em;
+	padding: 0.6em 0.8em;
+}
+
+.tabs-content {
+	width: 100%;
+	padding-bottom: 2rem;
+	background: white;
+}
+
+.tabs-content > .content {
+	padding: 0;
+}
+
+.tabs {
+	/*	margin-left: 14px;*/
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	text-align: center;
+	margin: 0;
+	padding: 0;
+}
+
+
+.tabs .tab-title {
+	padding: .5rem 1.3rem .4rem;
+	text-decoration: none;
+	width: 50%;
+	list-style: none;
+	background: white;
+	border-top-left-radius: 10px;
+	border-top-right-radius: 10px;
+	text-transform: uppercase;
+	font-weight: bold;
+	font-size: 1.2rem;
+	color: #DFC7AE;
+	cursor: pointer;
+}
+
+.tabs a {
+	text-decoration: none;
+	color: #D1873B;
+}
+
+.tabs .tab-title.active {
+	color: #D1873B;
+	background-color: #ebebeb;
+}
+
+.tabs .tab-title > a:focus {
+	outline: none;
+}
+
+.tabs .tab-title:hover {
+	/*color: #D1873B;*/
+	background-color: #f2f2f2;
+}
+
+#history-list {
+	width: 90%;
+	margin: 0 auto;
+	padding:0px;
+}
+
+.history-list-item {
+	list-style: none;
+	display: inline-block;
+	padding:10px;
+	width: 100%;
+}
+
+div.no-top {
+	border-top: 0px;
+}
+
+.starSmall > label {
+	font-size: 0.8em;
+}
+
+input[type="radio"] + label.starSmallLabel {
+	margin-right: -1px;
+}
+
+.starSmall {
+	margin: 6px 0px 0px -81px;
+	height: 1.7em;
+}
+
+p.history-list-date {
+	font-size: .8rem;
+	margin-left: 15px;
+	font-weight: bold;
+	color: #949494;
+}
